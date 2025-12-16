@@ -1,0 +1,11 @@
+{
+  "src/js/index.js": {
+    "file": "index-LfChop4J.js",
+    "name": "index",
+    "src": "src/js/index.js",
+    "isEntry": true,
+    "css": [
+      "index-C2R6oxz5.css"
+    ]
+  }
+}

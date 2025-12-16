@@ -1,0 +1,7 @@
+.wrapper {
+	@apply w-full max-w-[84.62%] xl:max-w-[min(90.28%,1580px)] mx-auto;
+}
+
+/* .wrapper-left {
+	@apply w-full max-w-[92.31%] xl:max-w-[95.14%] ml-auto;
+} */

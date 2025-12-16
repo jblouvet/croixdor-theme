@@ -1,0 +1,114 @@
+.tab-panel.is-removed {
+    display: none;
+}
+
+.tabs-shadow.tabs-fixedheight .tab-panel.is-active {
+padding-bottom: 3rem;
+    position: relative;
+    --tabs-shadow-height: 6rem;
+}
+
+.tabs-shadow.tabs-fixedheight .tab-panel.is-active::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--tabs-shadow-height, 10rem);
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, var(--color-grey, #e5e5e5) 100%);
+    z-index: 10;
+}
+
+/* Masque totalement les panels non actifs pendant la transition */
+.tab-panel.is-hidden {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Hauteur fixe et scroll interne à partir du breakpoint (ex: 1024px) */
+@media (min-width: 1024px) {
+    .tabs-fixedheight {
+        height: var(--tabs-fixedheight, 700px) !important;
+        position: relative;
+        overflow: hidden;
+    }
+    .tabs-fixedheight .tab-panel {
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: auto;
+        position: absolute;
+        display: block;
+    }
+		.tabs-fixedheight .tab-panel.is-active {
+        padding-bottom: 6rem;
+    }
+    .tabs-shadow.tabs-fixedheight .tab-panel.is-active {
+        --tabs-shadow-height: 12rem;
+        position: relative;
+    }
+    .tabs-shadow.tabs-fixedheight .tab-panel.is-active::after {
+        content: '';
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: var(--tabs-shadow-height, 10rem);
+        pointer-events: none;
+        background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, var(--color-grey, #e5e5e5) 100%);
+        z-index: 10;
+    }
+    .tabs-fixedheight .tab-panel-content {
+        height: 100%;
+        overflow-y: auto;
+        position: relative;
+        display: block;
+        background: transparent;
+    }
+		    .tabs-shadow.tabs-fixedheight .tab-panel-content {
+        padding-bottom: calc(var(--tabs-shadow-height, 10rem) * 0.7);
+    }
+    .tabs-fixedheight .tab-panel-content::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* Animation slide */
+.tabs-anim-slide .tab-panel {
+    transition: transform 0.3s, opacity 0.3s;
+    opacity: 0;
+    transform: translateX(30px);
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+}
+.tabs-anim-slide .tab-panel.is-active {
+    opacity: 1;
+    transform: translateX(0);
+    position: relative;
+    pointer-events: auto;
+}
+
+/* AutoHeight - FIX MOBILE : pas d'overflow hidden sur mobile */
+.tabs-autoheight {
+    transition: height 0.3s;
+    position: relative;
+}
+
+/* Sur mobile, on laisse les panels inactifs en position relative mais masqués */
+@media (max-width: 1023px) {
+    .tab-panel {
+        position: relative !important;
+        width: 100%;
+    }
+    .tab-panel.is-hidden {
+        position: absolute !important;
+        left: -9999px;
+        opacity: 0;
+    }
+}

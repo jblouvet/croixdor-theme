@@ -1,0 +1,53 @@
+
+#menu-header {
+	@apply xl:p-[4px];
+
+	li {
+		a {
+			@apply block max-xs:py-2 xs:py-[15px] xl:px-[12px] 1440:px-[30px] transition-all  text-white transition-all xl:rounded-[120px] xl:border xl:border-transparent xl:hover:border-white;
+		}
+		&.current-menu-item {
+			a {
+				@apply xl:border-white;
+			}
+}
+	}
+}
+
+.post-type-archive-acquereur #menu-header #menu-item-3457 a,
+.single-post #menu-header .current_page_parent a {
+@apply xl:!bg-blue xl:!text-white;
+}
+
+/**
+	* OFF SITE MENU
+	*
+	**/
+
+.site-nav {
+	@apply max-xl:opacity-0 max-xl:invisible max-xl:pointer-events-none max-xl:transition-all;
+
+	&.is-open {
+		@apply max-xl:opacity-100 max-xl:visible max-xl:pointer-events-auto;
+	}
+}
+
+/**
+ * HAMBURGER
+ *
+ **/
+
+.menu-btn.is-open {
+	 span span {
+		@apply transition-all;
+	 }
+	 span span:nth-child(1) {
+		@apply rotate-45 mt-[8px];
+	 }
+	span span:nth-child(2) {
+		@apply hidden;
+	}
+	span span:nth-child(3) {
+		@apply -rotate-45 -translate-y-[8.5px];
+	}
+}

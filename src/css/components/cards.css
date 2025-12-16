@@ -1,0 +1,6 @@
+@layer components {
+  .card {
+    border-radius: var(--radius-card);
+    @apply bg-white shadow-md p-6;
+  }
+}

@@ -1,0 +1,13 @@
+/* Footer Menu Styles */
+
+.site-footer {
+  span {
+    @apply block mb-1;
+  }
+  li {
+    @apply py-0.5;
+  }
+  p {
+    @apply leading-6.25 mb-6;
+  }
+}

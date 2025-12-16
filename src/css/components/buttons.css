@@ -1,0 +1,16 @@
+@layer components {
+  .btn {
+		@apply font-display text-[14px] leading-none tracking-[calc(30/1000*1em)]  border-[1px] min-w-[132px] text-center max-w-fit px-[18px] py-[18px] hover:text-white transition-all;
+	}
+	.label {
+		@apply text-[12px] tracking-[1.2] font-medium;
+	}
+
+	.bloc-accordeon-header {
+	.bloc-cta {
+			.buttons {
+				@apply max-xl:mt-8 xl:justify-end;
+			}
+		}
+	}
+}

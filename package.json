@@ -1,0 +1,18 @@
+{
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "init": "vite build && vite",
+    "dev": "vite",
+    "debug": "vite -d"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.11",
+    "nouislider": "^15.8.1",
+    "swiper": "^12.0.3",
+    "tailwindcss": "^4.1.11"
+  }
+}

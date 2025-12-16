@@ -1,0 +1,43 @@
+/* À placer dans ton fichier CSS principal ou dans <style> */
+#ca-slider {
+  max-width: 300px;
+}
+
+.noUi-target {
+  @apply !bg-[#979797] !rounded-[10px] !border-0 !shadow-none my-2;
+}
+
+.noUi-horizontal {
+@apply !h-[5px];
+}
+
+.noUi-connect {
+  background: #007bff;
+}
+
+.noUi-horizontal .noUi-handle {
+  @apply !w-[17px] !h-[17px] -right-[6px] !rounded-full !border-white !border-2 !bg-blue !shadow-none;
+
+  top: -6px;
+  cursor: grab;
+  transition: border-color 0.2s;
+
+  &::before,
+  &::after {
+    @apply !hidden;
+  }
+}
+
+.noUi-horizontal .noUi-handle:hover {
+  border-color: #0056b3;
+}
+
+.noUi-tooltip {
+  background: #fff;
+  color: #007bff;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  font-size: 13px;
+  padding: 2px 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}

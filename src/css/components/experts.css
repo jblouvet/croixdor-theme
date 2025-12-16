@@ -1,0 +1,45 @@
+.bloc-experts .experts-carousel {
+    perspective: 1000px;
+}
+
+.bloc-experts .expert-card {
+    transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform-origin: bottom right;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* State: Active (First card) */
+.bloc-experts .expert-card.is-active {
+    z-index: 30;
+    opacity: 1;
+    transform: translateX(0) scale(1) rotate(0deg);
+}
+
+/* State: Next 1 (Second card) */
+.bloc-experts .expert-card.is-next {
+    z-index: 20;
+    opacity: 1;
+    transform: translateX(20px) scale(0.96) rotate(4deg);
+}
+
+/* State: Next 2 (Third card) */
+.bloc-experts .expert-card.is-next-2 {
+    z-index: 10;
+    opacity: 1;
+    transform: translateX(40px) scale(0.92) rotate(8deg);
+}
+
+/* State: Hidden (Behind the third card) */
+.bloc-experts .expert-card.is-hidden-stack {
+    z-index: 0;
+    opacity: 0;
+    transform: translateX(40px) scale(0.92) rotate(8deg);
+    pointer-events: none;
+}
+
+/* State: Previous (Leaving to the left or coming from left)
+   We want a loop, so previous cards should ideally go to the back of the stack.
+   However, for a nice transition, the "outgoing" card might fade out to left/top?
+*/
+
+

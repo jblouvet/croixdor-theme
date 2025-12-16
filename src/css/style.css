@@ -1,0 +1,223 @@
+
+/* tailwind */
+@import "tailwindcss";
+
+@font-face {
+    font-family: 'Youth';
+    src: url('/wp-content/themes/croixdor/assets/fonts/Youth-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Youth';
+    src: url('/wp-content/themes/croixdor/assets/fonts/Youth-Medium.woff2') format('woff2');
+    font-weight: medium;
+    font-style: normal;
+    font-display: swap;
+}
+
+@theme {
+
+  /* Viewports */
+  --breakpoint-xxs: 23.125em;
+  --breakpoint-xs: 26.25em;
+  --breakpoint-480: 30em;
+  --breakpoint-650: 40.625em;
+  --breakpoint-1440: 90rem;
+  --breakpoint-2125: 132.8125rem;
+  --breakpoint-1580: 98.75em;
+  /* Fonts */
+  --font-sans: "DM sans", system-ui, sans-serif;
+  --font-display :"Youth", sans-serif;
+
+  /* Couleurs */
+  --color-blue: #054BB4;
+  --color-green: #50DDA4;
+  --color-pink: #F5BEE1;
+  --color-beige: #FAE6CD;
+  --color-blue-dark: #213350;
+  --color-grey: #F4F8FB;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-primary: var(--color-blue-dark); /* Bleu marine foncé */
+
+  --menu-shadow: 0 0 20px 0 rgba(0,0,0,.15);
+  --tabs-shadow: 0 0 20px 0 rgba(0,0,0,.10);
+  --input-shadow: 0 0 20px 0 rgba(25,36,54,.07);
+}
+
+body, html {
+  color: var(--color-primary);
+}
+
+body {
+  @apply overflow-x-hidden;
+}
+
+/* Import des composants */
+@layer custom {
+  @import "./components/wrapper.css";
+  @import "./components/buttons.css";
+  @import "./components/cards.css";
+  @import "./components/text.css";
+  @import "./components/menu.css";
+  @import "./components/editor-content.css";
+  @import "./components/footer.css";
+  @import "./components/tabs.css";
+  @import "./components/no-scrollbar.css";
+  @import "./components/form-slider.css";
+  @import "./components/formidable.css";
+  @import "./components/blocs.css";
+  @import "./components/experts.css";
+
+  body.no-scroll,
+  body.has-overflow-hidden {
+      overflow: hidden;
+  overscroll-behavior: none;
+  position: fixed; /* Toujours nécessaire pour iOS */
+  width: 100%;
+  }
+
+#menu-header li {
+  @apply max-xl:first:hidden;
+}
+
+  /* .site-content {
+    @apply mt-[calc(92px+60px)] lg:mt-[calc(92px+70px)];
+  } */
+
+
+
+  .home .site-content {
+    @apply mt-0  lg:mt-0;
+  }
+  .site-content {
+    @apply mt-0  lg:mt-0;
+  }
+
+.page-content .bloc-text_img:first-child {
+  @apply max-xl:!pt-0 max-xl:pb-18;
+}
+
+.page-content .bloc-hero + .bloc-text_img {
+  @apply pt-9 xl:pt-18;
+}
+
+.page-content .bloc-text_img .col-text {
+
+  @apply max-xl:mb-8;
+
+}
+
+.page-content .bloc-text_img + .bloc-text_img {
+  &:not(.is-dark) {
+@apply !pt-0;
+  }
+
+
+  .order-1 {
+    @apply max-xl:!order-2 max-xl:mt-8;
+  }
+    .order-2 {
+    @apply max-xl:order-1;
+  }
+}
+
+  .editor-content + .bloc-cta,
+  .chapo + .bloc-cta {
+    @apply mt-10;
+  }
+
+  .bloc-annonces {
+    .acquereur-annonce,
+    .pharmacie-annonce {
+      @apply bg-white;
+      &:first-child {
+        @apply ml-[7.69%] xl:ml-[max(calc(4.86vw+6.25%),calc(4%+(100vw-1580px)/2))];
+      }
+      &:last-child {
+        @apply mr-[7.69%] xl:mr-[max(calc(4.86vw+6.25%),calc(4%+(100vw-1580px)/2))];
+      }
+    }
+    .acquereur-annonce {
+      min-height: 480px;
+    }
+  }
+
+#match-tunnel-expert .results {
+  @apply !min-h-[calc(100%+100px)] sm:!top-[100px] [@media(min-height:1280px)]:!top-[200px];
+  &::before {
+    position: absolute;
+    top: 0;
+    content: '';
+    width: 100%;
+    height: 200px;
+    background-color: white;
+    transform: translateY(-200px);
+  }
+}
+
+  /* Empilement des cartes dans .is-stack */
+.match-items.is-stack {
+    @apply xl:fixed xl:top-auto xl:left-0 xl:h-full xl:bg-blue xl:w-[100vw] xl:rounded-t-[80px] min-h-[400px];
+  /* @apply xl:fixed xl:top-auto xl:h-full xl:bg-blue xl:w-[100vw] xl::-translate-x-[calc(9.72vw+12px)] max-w-[1580px] 1580:mx-auto xl:rounded-t-[80px] min-h-[400px]; */
+}
+
+#match-tunnel-expert .match-items.is-stack {
+  @apply min-h-[470px];
+}
+
+/* Toutes les cartes : positionnées au centre, cachées par défaut */
+.match-items.is-stack .acquereur-annonce,
+.match-items.is-stack .expert-annonce {
+  @apply absolute left-1/2 top-0 xl:-top-[80px] z-[1] bg-white min-h-[400px] h-[400px];
+  opacity: 1;
+  transition: all 0.5s cubic-bezier(.68,-0.55,.27,1.55);
+  transform-origin: 100% 100%;
+  &.swipe-left,
+  &.swipe-right {
+    opacity: 0;
+  }
+}
+
+.match-items.is-stack .expert-annonce {
+  @apply min-h-[470px] h-[470px];
+}
+
+/* 1ère carte (la plus visible, centrée, sans rotation) */
+.match-items.is-stack .acquereur-annonce:nth-child(1),
+.match-items.is-stack .expert-annonce:nth-child(1) {
+    transform: translate(-50%, 0) scale(1) rotate(0deg);
+    z-index: 3;
+}
+
+/* 2ème carte (derrière, légère rotation) */
+.match-items.is-stack .acquereur-annonce:nth-child(2),
+.match-items.is-stack .expert-annonce:nth-child(2) {
+    transform: translate(-50%, 0) scale(0.97) rotate(4deg);
+    z-index: 2;
+}
+
+/* 3ème carte (derrière, rotation plus forte) */
+.match-items.is-stack .acquereur-annonce:nth-child(n+3),
+.match-items.is-stack .expert-annonce:nth-child(n+3) {
+    transform: translate(-50%, 0) scale(0.95) rotate(8deg);
+    z-index: 1;
+}
+
+.other-posts,
+.all-posts {
+  .excerpt {
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: calc(1.5em * 7); /* 7 lignes, si line-height = 1.5em */
+}
+}
+
+}
+
