@@ -44,7 +44,15 @@ function handle_inscription_submission()
 
 	$body = [];
 	foreach ($fields as $field) {
-		$body[$field] = isset($_POST[$field]) ? sanitize_text_field($_POST[$field]) : '';
+		if ($field === 'mail') {
+			$val = isset($_POST[$field]) ? sanitize_email($_POST[$field]) : '';
+			if (!is_email($val)) {
+				wp_send_json_error(['message' => 'Adresse email invalide.'], 400);
+			}
+			$body[$field] = $val;
+		} else {
+			$body[$field] = isset($_POST[$field]) ? sanitize_text_field($_POST[$field]) : '';
+		}
 	}
 
 	// Make request
