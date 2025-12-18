@@ -48,4 +48,7 @@
 	</div>
 </footer>
 
+
+<?php get_template_part('partials/footer', 'inscription-form'); ?>
+
 <?php wp_footer(); ?>

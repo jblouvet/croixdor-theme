@@ -41,6 +41,8 @@
   --color-grey: #F4F8FB;
   --color-white: #ffffff;
   --color-black: #000000;
+  --color-gold: #BE9C38;
+  --color-argent: #8E8E8E;
   --color-primary: var(--color-blue-dark); /* Bleu marine foncé */
 
   --menu-shadow: 0 0 20px 0 rgba(0,0,0,.15);

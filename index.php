@@ -4,101 +4,120 @@
 
   <main class="page-content">
 
+    <section
+      class="bg-gradient-to-r from-[#111825] to-[#213350] xl:pb-18 w-full max-h-[300px] min-h-[300px] md:max-h-[510px] md:min-h-[510px] xl:pt-[calc(92px+70px)] relative flex flex-col">
+
+      <figure class="absolute z-1 bottom-0 left-0 w-full">
+        <img src="<?= get_template_directory_uri() . '/assets/img/podium_alt-optimised.png' ?>" alt=""
+          class="w-[326px] h-[171px] md:w-[726px] md:h-[358px] mx-auto max-w-full">
+      </figure>
+
+      <div class="relative z-2 flex-1 w-full flex flex-col">
+
+        <div class="w-[326px] h-[171px] md:w-[726px] md:h-[358px] max-w-full mx-auto mt-auto flex flex-wrap items-end">
+          <?php
+          $top_query = new WP_Query([
+            'post_type' => 'pharmacien',
+            'posts_per_page' => 3,
+            'orderby' => 'menu_order',
+            'order' => 'ASC',
+            'fields' => 'ids'
+          ]);
+
+          if ($top_query->have_posts()):
+            $rank_counter = 0;
+            while ($top_query->have_posts()):
+              $top_query->the_post();
+              $id = get_the_ID();
+              $order_class = 'order-3 pb-2.5 md:pb-5';
+              $title_class = '!text-xs md:!text-[23px]'; // Default to 3rd pos
+              if ($rank_counter === 0) {
+                $order_class = 'order-2  pb-3 md:pb-7'; // 1st place -> middle
+                $title_class = '!text-sm md:!text-[26px]';
+              }
+              if ($rank_counter === 1)
+                $order_class = 'order-1 pb-2.5 md:pb-5'; // 2nd place -> left
+          
+              ?>
+              <div class="flex flex-col items-center mx-auto text-center w-1/3 z-10 relative <?= $order_class ?>">
+                <h3 class="text-white font-bold text-lg mb-1 leading-tight <?= $title_class ?>">
+                  <?php echo get_field('prenom', $id); ?><br>
+                  <?php echo get_field('nom', $id); ?>
+                </h3>
+                <span class="text-green text-[8px] md:text-[17px]"><span
+                    class="font-bold text-[12px] md:text-[23px]"><?php echo get_field('points', $id); ?></span>
+                  pts</span>
+              </div>
+              <?php
+              $rank_counter++;
+            endwhile;
+            wp_reset_postdata();
+          endif;
+          ?>
+        </div>
+
+      </div>
+
+    </section>
+
     <div class="wrapper">
 
-      <div class="xl:w-14/16 1440:w-12/16 xl:mx-auto pb-13">
+      <div class="xl:w-14/16 1440:w-12/16 xl:mx-auto pb-13 py-12 xl:py-19">
 
-        <?php if (have_posts()) : ?>
+        <?php if (have_posts()): ?>
 
-          <h1 class="titre-h1 text-center text-blue mb-4.5">Nos articles conseils d'experts</h1>
+          <h1 class="titre-h1 text-center text-blue mb-4.5">Nos pharmaciens<br> certifiés Croix d'Or</h1>
 
-          <?php if ($categories = get_categories(['hide_empty' => true])) : ?>
-            <ul class="categories-list mb-12 lg:mb-27 flex justify-center items-center gap-2.5">
-              <?php
-              $is_all_active = (!is_category()) ? 'is-active' : '';
-              ?>
-              <li>
-                <a href="<?php echo get_permalink(get_option('page_for_posts')); ?>" class="text-blue border-[1px] border-blue rounded-[40px] px-4 py-1.5 leading-[1] <?php echo $is_all_active; ?> opacity-70 [&.is-active]:opacity-100">
-                  Tous les articles
-                </a>
-              </li>
-              <?php foreach ($categories as $cat) : ?>
-                <?php
-                $is_active = (is_category() && get_queried_object_id() === $cat->term_id) ? 'is-active' : '';
-                ?>
-                <li>
-                  <a href="<?php echo get_category_link($cat->term_id); ?>" class="text-blue border-[1px] border-blue rounded-[40px] px-4 py-1.5 leading-[1] <?php echo $is_active; ?> opacity-70 [&.is-active]:opacity-100">
-                    <?php echo esc_html($cat->name); ?>
-                  </a>
-                </li>
-              <?php endforeach; ?>
-            </ul>
-          <?php endif; ?>
+          <div class="text-center">
+            <p>Les titulaires ayant obtenu au moins 75 % de bonnes réponses,<br class="max-sm:hidden"> soit un score
+              minimum de 247 points sur
+              330.</p>
+          </div>
 
-          <div class=" all-posts flex flex-wrap gap-10">
+          <div class="all-posts mt-11.5 xl: mt-17">
+            <?php $i = 1; ?>
+            <?php while (have_posts()):
+              the_post(); ?>
 
-            <?php while (have_posts()) : the_post(); ?>
-
-              <div class="flex flex-col w-full lg:w-[calc((100%/3)-(80px/2))] text-blue mb-8 xl:mb-0 bg-white rounded-[30px] shadow-[var(--menu-shadow)]">
-
-                <figure class="relative">
+              <div class="flex w-full bg-grey even:bg-white rounded-[12px] h-[86px] items-center">
+                <div class="w-[46px] mdw-[124px] text-center font-bold text-[14px] md:text-[16px]">
+                  <?php if ($ordre = get_field('ordre')): ?>
+                    <?php if ($ordre <= 3): ?>
+                      <img class="mx-auto" src="<?= get_template_directory_uri() . '/assets/img/croix-' . $ordre . '.svg' ?>"
+                        alt="<?= $ordre ?>">
+                    <?php else: ?>
+                      <?= $ordre ?>
+                    <?php endif ?>
+                  <?php endif ?>
+                </div>
+                <div class="flex-1 font-bold text-[14px] md:text-[16px] pl-2.5">
+                  <?= get_field('prenom') ?>     <?= get_field('nom') ?>
+                </div>
+                <div class="mx-5">
+                  <?php if ($medaille = get_field('medaille')): ?>
+                    <img class="max-md:w-[32px]"
+                      src="<?= get_template_directory_uri() . '/assets/img/croix-' . $medaille . '-couronne.svg' ?>"
+                      alt="<?= $medaille ?>">
+                  <?php endif ?>
+                </div>
+                <div class="mr-6">
                   <?php
-                  if (has_post_thumbnail($actu)) :
-                    $image_id = get_post_thumbnail_id($actu);
-                    $image = wp_get_attachment_image_src($image_id, 'actualite_extrait');
-                    $image_url = $image[0];
-                  else :
-                    $image_url = get_template_directory_uri() . '/assets/img/actualite-placeholder.svg';
-                  endif;
-                  $cats = get_the_category($actu);
-                  $first_cat = (!empty($cats) && !is_wp_error($cats)) ? esc_html($cats[0]->name) : '';
+                  $points = get_field('points');
+                  if ($points > 297) {
+                    $style = 'podium text-white bg-gold';
+                  } elseif ($points > 279) {
+                    $style = 'or text-gold bg-gold/20';
+                  } else {
+                    $style = 'argent text-argent bg-[#F3F2F3]';
+                  }
                   ?>
-                  <div class="absolute top-3.5 right-3.5 flex gap-2.5">
-                    <?php if ($first_cat) : ?>
-                      <div class="date bg-white/70 rounded-[40px] text-primary py-1.5 px-3 leading-[1]">
-                        <?php echo $first_cat; ?>
-                      </div>
-                    <?php endif; ?>
-
-                    <div class="date bg-white/70 rounded-[40px] text-primary py-1.5 px-3 leading-[1]">
-                      <?php echo get_the_date('d/m/y', $actu); ?>
-                    </div>
+                  <div class="cartouche <?= $style ?>  text-[14px] md:text-[16px] font-medium px-3 py-1 rounded-[30px]">
+                    <?= get_field('points') ?> <span class="text-[10px] md:text-xs">pts</span>
                   </div>
-
-                  <img
-                    class=" rounded-t-[30px]"
-                    src="<?php echo $image_url; ?>"
-                    alt="">
-
-                </figure>
-
-                <div class="flex flex-col h-full flex-1 px-7.5 pb-5.5">
-
-                  <h3 class="titre-h3 bg-white mt-5 mb-3">
-                    <a
-                      class="hover:underline"
-                      href="<?php echo get_the_permalink($actu); ?>"><?php echo get_the_title($actu); ?></a>
-                  </h3>
-
-                  <div class="excerpt flex-1 text-primary mb-4">
-                    <?php the_excerpt() ?>
-                  </div>
-
-                  <div class="mt-auto">
-                    <hr class="my-3 bg-[#213350] opacity-30">
-
-                    <a class="group block font-display font-bold text-[14px] bg-white text-blue -translate-x-5 px-[18px] rounded-[60px] cursor-pointer transition-all:stroke-blue" href="<?php echo get_the_permalink($actu); ?>">
-                      <div class=" flex items-center transition-all [&>svg>path]:stroke-blue ">
-                        <?php get_template_part('partials/icon', 'arrow-right.svg') ?>
-                        <span class="ml-2.5 group-hover:underline">Lire la suite</span>
-                      </div>
-                    </a>
-                  </div>
-
                 </div>
               </div>
 
-            <?php endwhile ?>
+              <?php $i++; endwhile ?>
 
             <?php
             $max_num_pages = $wp_query->max_num_pages;

@@ -5,3 +5,5 @@ require_once('inc/utils/menus.php');
 require_once('inc/utils/images.php');
 require_once('inc/utils/admin.php');
 require_once('inc/utils/editor.php');
+require_once('inc/utils/import_pharmacien.php');
+require_once('inc/api/inscription.php');
